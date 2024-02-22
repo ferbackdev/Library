@@ -1,0 +1,55 @@
+-- Creazione del Database
+CREATE DATABASE IF NOT EXISTS LibraryManager;
+
+-- Uso del Database creato
+USE LibraryManager;
+
+-- Creazione della Tabella Libri
+CREATE TABLE IF NOT EXISTS Libri (
+    ID_Libro INT AUTO_INCREMENT PRIMARY KEY,
+    Titolo VARCHAR(255) NOT NULL,
+    Autore VARCHAR(255) NOT NULL,
+    ISBN VARCHAR(13) NOT NULL UNIQUE,
+    Anno_Pubblicazione YEAR,
+    Quantita_Totale INT DEFAULT 1, -- Totale delle copie del libro
+    Quantita_Disponibile INT DEFAULT 1, -- Copie disponibili per il prestito
+    CHECK (Quantita_Totale >= 0),
+    CHECK (Quantita_Disponibile >= 0 AND Quantita_Disponibile <= Quantita_Totale)
+);
+
+CREATE TABLE Categoria (
+    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL,
+    Descrizione TEXT
+);
+
+-- Creazione della Tabella Utenti
+CREATE TABLE IF NOT EXISTS Utenti (
+    ID_Utente INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL,
+    Cognome VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- Creazione della Tabella Prestiti
+CREATE TABLE IF NOT EXISTS Prestiti (
+    ID_Prestito INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Libro INT,
+    ID_Utente INT,
+    Data_Inizio DATE NOT NULL,
+    Data_Fine DATE,
+    Restituito BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (ID_Libro) REFERENCES Libri(ID_Libro),
+    FOREIGN KEY (ID_Utente) REFERENCES Utenti(ID_Utente)
+);
+
+-- Creazione della Tabella Dipendenti
+CREATE TABLE IF NOT EXISTS Dipendenti (
+    ID_Dipendente INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(255) NOT NULL,
+    Cognome VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE,
+    Password VARCHAR(255) NOT NULL, -- La password dovrebbe essere salvata criptata
+    Ruolo ENUM('Admin', 'Dipendente') NOT NULL
+);
+

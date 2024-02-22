@@ -1,0 +1,27 @@
+biblioteca_app/
+│
+├── main.py              # Il punto di ingresso dell'applicazione
+├── config.py            # Configurazioni, come le credenziali del database
+│
+├── database/            # Moduli per interagire con il database MySQL
+│   ├── __init__.py
+│   ├── connection.py    # Gestisce la connessione al database
+│   ├── queries.py       # Gestisce la connessione al database
+│   └── libraryManager.py # Contiene tutte le funzioni delle query che sono private
+│
+├── gui/                 # Elementi dell'interfaccia utente
+│   ├── __init__.py
+│   ├── main_window.py   # Finestra principale dell'applicazione
+│   ├── admin_panel.py   # Pannello di amministrazione
+│   └── employee_panel.py # Pannello per i dipendenti
+│
+├── models/              # Classi per la rappresentazione dei dati
+│   ├── __init__.py
+│   ├── employee.py      # Classe per i dipendenti
+│   ├── book.py          # Classe per i libri
+│   ├── loan.py          # Classe per i prestiti
+│   └── user.py          # Classe per gli utenti
+│
+└── utils/               # Funzioni di utilità
+    ├── __init__.py
+    └── hidden.py        # Metodi per nascondere/mascherare dati sensibili
